@@ -1,18 +1,30 @@
-import React from 'react'
+import React from 'react';
 
 export default function BSdropdown() {
   return (
     <div>
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+      <div className="dropdown">
+        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
           Dropdown button
-  </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li><a className="dropdown-item" href="/">Action</a></li>
-          <li><a className="dropdown-item" href="/">Another action</a></li>
-          <li><a className="dropdown-item" href="/">Something else here</a></li>
+        </button>
+        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li>
+            <a className="dropdown-item" href="/">
+              Action
+            </a>
+          </li>
+          <li>
+            <a className="dropdown-item" href="/">
+              Another action
+            </a>
+          </li>
+          <li>
+            <a className="dropdown-item" href="/">
+              Something else here
+            </a>
+          </li>
         </ul>
       </div>
     </div>
-  )
+  );
 }
