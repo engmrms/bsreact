@@ -1,6 +1,7 @@
 import './App.css';
 
 import { BSdropdown, BSModal } from './bootstrap';
+import Grid from './Grid';
 import RSelect from './Select/index';
 
 function App() {
@@ -15,6 +16,9 @@ function App() {
 
         <RSelect />
       </div>
+      <Grid direction="row" alignItems="center" justify="center" container space={4}>
+        <Grid md={5} />
+      </Grid>
     </div>
   );
 }
