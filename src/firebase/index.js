@@ -10,7 +10,6 @@ export default function Index() {
   const ref = db.collection('schools');
 
   const getschools = () => {
-  
     ref.onSnapshot(snapshot => {
       const items = snapshot.docs.map(doc => ({
         id: doc.id,
@@ -23,17 +22,21 @@ export default function Index() {
   const addSchool = e => {
     e.preventDefault();
     const docId = uuidv4();
-    ref.doc(docId).set({ id: docId, name, desc }).catch(err=>console.log(err));
-    
+    ref
+      .doc(docId)
+      .set({ id: docId, name, desc })
+      .catch(err => console.log(err));
   };
-  const onDelete =(e,schid)=>{
+  const onDelete = (e, schid) => {
     e.preventDefault();
-    ref.doc(schid).delete().catch(err=>console.log(err))
-      
-  }
+    ref
+      .doc(schid)
+      .delete()
+      .catch(err => console.log(err));
+  };
 
   useEffect(() => {
-    getschools(); 
+    getschools();
   }, []);
 
   return (
@@ -45,9 +48,7 @@ export default function Index() {
         </div>
         <div className="form-group">
           <label htmlFor="desc">Description</label>
-          <textarea className="form-control" id="desc" value={desc} onChange={e => setDesc(e.target.value)}>
-            
-          </textarea>
+          <textarea className="form-control" id="desc" value={desc} onChange={e => setDesc(e.target.value)} />
         </div>
 
         <button type="submit" className="btn btn-primary my-3">
@@ -62,7 +63,7 @@ export default function Index() {
             <a href="/" className="card-link">
               Edit
             </a>
-            <a href="/" className="card-link" onClick={(e)=>onDelete(e,data.id)}>
+            <a href="/" className="card-link" onClick={e => onDelete(e, data.id)}>
               Delete
             </a>
           </div>
