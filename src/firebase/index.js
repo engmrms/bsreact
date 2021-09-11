@@ -1,15 +1,24 @@
+/* eslint-disable react/jsx-props-no-spreading */
+import 'react-datepicker/dist/react-datepicker.css';
+
 import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
 
+import DateTimePicker from '../DateTimePicker';
 import { db } from './firebaselt';
 
 export default function Index() {
   const [schools, setschools] = useState([]);
-  const [name, setName] = useState('');
-  const [desc, setDesc] = useState('');
-  const [id, setId] = useState('');
+
   const ref = db.collection('schools');
 
+  const {
+    register,
+    control,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
   const getschools = () => {
     ref.onSnapshot(snapshot => {
       const items = snapshot.docs.map(doc => ({
@@ -22,13 +31,15 @@ export default function Index() {
   };
   const OnReset = () => {
     console.log('DDDDDDDD');
-    setDesc('');
-    setName('');
-    setId('');
+    // setDesc('');
+    // setName('');
+    // setId('');
   };
 
-  const addSchool = e => {
-    e.preventDefault();
+  const addSchool = data => {
+    console.log(data);
+
+    const { name, id, desc } = data;
     const docId = uuidv4();
     if (!id) {
       ref
@@ -59,9 +70,9 @@ export default function Index() {
     e.preventDefault();
     ref.doc(schId).onSnapshot(snapshot => {
       const school = snapshot.data();
-      setName(school.name);
-      setDesc(school.desc);
-      setId(school.id);
+      // setName(school.name);
+      // setDesc(school.desc);
+      // setId(school.id);
     });
   };
 
@@ -72,14 +83,23 @@ export default function Index() {
   return (
     <>
       <div className="mt-5 col-md-6">
-        <form onSubmit={addSchool}>
+        <form onSubmit={handleSubmit(addSchool)}>
           <div className="form-group">
             <label htmlFor="name">Name</label>
-            <input type="text" className="form-control" id="name" value={name} aria-describedby="name" onChange={e => setName(e.target.value)} />
+            <input type="text" {...register('name', { required: true })} className="form-control" aria-describedby="name" />
+            {errors.name && <div className="text-danger">Please select a valid Name.</div>}
           </div>
           <div className="form-group">
             <label htmlFor="desc">Description</label>
-            <textarea className="form-control" id="desc" value={desc} onChange={e => setDesc(e.target.value)} />
+            <textarea className="form-control" {...register('desc', { required: true })} />
+            {errors.desc && <div className="text-danger">Please select a valid Description.</div>}
+          </div>
+
+          <div className="form-group">
+            <DateTimePicker title="Start at" name="startAt" control={control} errors={errors} rules={{ required: true }} />
+          </div>
+          <div className="form-group">
+            <DateTimePicker title="End At" name="endAt" control={control} errors={errors} rules={{ required: true }} />
           </div>
 
           <button type="submit" className="btn btn-primary my-3">
@@ -90,6 +110,7 @@ export default function Index() {
           </button>
         </form>
       </div>
+
       <div className="row">
         {schools &&
           schools.map(data => (

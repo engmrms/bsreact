@@ -17,9 +17,9 @@ function App() {
 
         <RSelect />
       </div>
-      <Grid direction="row" alignItems="center" justify="center" container space={4}>
+      {/* <Grid direction="row" alignItems="center" justify="center" container space={4}>
         <Grid md={5} />
-      </Grid>
+      </Grid> */}
 
       <Firebase />
     </div>
