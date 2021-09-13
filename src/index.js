@@ -3,13 +3,20 @@ import 'bootstrap/scss/bootstrap.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import counter from './Store/reducer';
+
+const store = createStore(counter);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
