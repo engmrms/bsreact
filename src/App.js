@@ -1,9 +1,12 @@
 import './App.css';
 
 import { BSdropdown, BSModal } from './bootstrap';
+import Departments from './Department/index';
 import Firebase from './firebase';
 import Grid from './Grid';
 import RSelect from './Select/index';
+import Users from './Users';
+import Yup from './Yup';
 
 function App() {
   return (
@@ -21,7 +24,11 @@ function App() {
         <Grid md={5} />
       </Grid> */}
 
-      <Firebase />
+      {/* <Firebase /> */}
+      <Users />
+      <Departments />
+
+      <Yup />
     </div>
   );
 }
