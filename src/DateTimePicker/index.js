@@ -1,15 +1,20 @@
 // import 'react-datepicker/dist/react-datepicker.css';
 
-import React from 'react';
+import React, { useState } from 'react';
 // import ReactDatePicker from 'react-datepicker';
 import { Controller } from 'react-hook-form';
-import DatePicker from 'react-multi-date-picker';
+import DatePicker, { Calendar } from 'react-multi-date-picker';
 import TimePicker from 'react-multi-date-picker/plugins/time_picker';
 
 export default function DateTimePicker({ control, title, name, errors, rules }) {
+  const [values, setValues] = useState();
+
   return (
     <>
-      <label htmlFor={name}>{title}</label>
+      <Calendar value={values} onChange={setValues} range numberOfMonths={2} showOtherDays />
+      <label className="form-label" htmlFor={name}>
+        {title}
+      </label>
       <Controller
         name={name}
         control={control}

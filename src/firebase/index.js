@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import 'react-datepicker/dist/react-datepicker.css';
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+// import 'react-datepicker/dist/react-datepicker.css';
 
 import React, { useEffect, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
