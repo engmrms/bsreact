@@ -1,23 +1,8 @@
-import * as toggle from './actions';
+import { combineReducers } from 'redux';
 
-export default function counter(state = { counter: 0 }, action) {
-  let bsstate = state;
+import counter from './reducers/counter';
+import wizered from './reducers/wizered';
 
-  switch (action.type) {
-    case toggle.INCREMENT: {
-      bsstate = { ...state, ...{ counter: state.counter + 1 } };
-      localStorage.setItem('counter', bsstate.counter);
-      return bsstate;
-    }
-    case toggle.DECREMENT: {
-      bsstate = { ...state, ...{ counter: state.counter - 1 } };
-      localStorage.setItem('counter', bsstate.counter);
-      return bsstate;
-    }
-    case toggle.INITIAL: {
-      return { ...state, ...{ counter: +localStorage.getItem('counter') || 0 } };
-    }
-    default:
-      return state;
-  }
-}
+const reducer = combineReducers({ counter, wizered });
+
+export default reducer;

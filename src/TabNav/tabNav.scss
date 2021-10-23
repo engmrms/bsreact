@@ -1,0 +1,141 @@
+$primary: green;
+$body-color: #333;
+
+.navTabs {
+  ul.nav {
+    margin-right: -4rem;
+    margin-left: -4rem;
+    border-bottom: 1px solid #edeff0;
+    padding-right: 5rem;
+
+    .nav-link {
+      color: $body-color;
+      font-size: 1.4rem;
+      font-weight: 600;
+      line-height: 1.7;
+      padding-bottom: 1.8rem;
+      margin-bottom: 1.8rem;
+      min-width: 13.8rem;
+      position: relative;
+      text-align: center;
+
+      @media screen and (min-width: 991px) {
+        margin-bottom: 0;
+      }
+
+      &.active {
+        background-color: transparent;
+        color: $primary;
+
+        &::after {
+          @media screen and (min-width: 991px) {
+            content: '';
+            width: 100%;
+            height: 3px;
+            display: block;
+            background-color: $primary;
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+          }
+        }
+      }
+    }
+
+    &.nav-dropdown {
+      @media (max-width: 991px) {
+        border: 1px solid #dddddd;
+        border-radius: 5px;
+        overflow: hidden;
+        position: relative;
+        margin-right: 0;
+        margin-left: 0;
+        padding-right: 0;
+
+        &::after {
+          content: '☰';
+          position: absolute;
+          top: 8px;
+          right: 15px;
+          z-index: 2;
+          pointer-events: none;
+        }
+
+        &.open {
+          a {
+            position: relative;
+            display: block;
+          }
+
+          > li > a.active {
+            background-color: #eeeeee;
+          }
+        }
+
+        li {
+          display: block;
+          padding: 0;
+          vertical-align: bottom;
+          width: 100%;
+        }
+
+        > li > a {
+          position: absolute;
+          top: 0;
+          left: 0;
+          margin: 0;
+          width: 100%;
+          height: 100%;
+          display: inline-block;
+          border-color: transparent;
+          padding: 1rem;
+
+          &:focus,
+          &:hover,
+          &:active {
+            border-color: transparent;
+          }
+        }
+
+        > li > a.active {
+          display: block;
+          border-color: transparent;
+          position: relative;
+          z-index: 1;
+          background: #fff;
+
+          &:focus,
+          &:hover,
+          &:active {
+            border-color: transparent;
+          }
+        }
+      }
+    }
+  }
+
+  .item {
+    @media screen and (min-width: 991px) {
+      padding-right: 1rem;
+    }
+
+    &__title {
+      color: #909a9f;
+      line-height: 2rem;
+      margin-bottom: 1rem;
+
+      @media screen and (min-width: 991px) {
+        margin-bottom: 0;
+      }
+    }
+
+    i {
+      vertical-align: middle;
+    }
+
+    &__value {
+      line-height: 2rem;
+      font-weight: 600;
+    }
+  }
+}

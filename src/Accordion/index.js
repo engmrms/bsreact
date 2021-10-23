@@ -1,48 +1,52 @@
-/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/display-name */
+/* eslint-disable no-magic-numbers */
 /* eslint-disable jsx-a11y/role-supports-aria-props */
-import './styles.scss';
+/* eslint-disable react/prop-types */
 
 import React, { useEffect, useState } from 'react';
 
-function Panel({ label, content, activeTab, index, activateTab }) {
+const Accordion = ({ children, className }) => {
+  const [activePane, setActivePane] = useState();
   const [height, setHeight] = useState(0);
+
+  const activatePane = index => {
+    setHeight(document.querySelectorAll('.accordion-collapse')[index].scrollHeight);
+    setActivePane(prev => (prev === index ? -1 : index));
+  };
+
   useEffect(() => {
     window.setTimeout(() => {
-      const elHeight = document.querySelector('.panel__inner').scrollHeight;
-      setHeight(elHeight);
+      let defaultActive = children.findIndex(child => child.props.active);
+      defaultActive = defaultActive > -1 ? defaultActive : 0;
+      setActivePane(defaultActive);
+      setHeight(document.querySelectorAll('.accordion-collapse')[defaultActive].scrollHeight);
     }, 333);
   }, []);
 
-  const isActive = activeTab === index;
+  return (
+    <div className={`accordion ${className}`} role="tablist">
+      {children.map((child, index) => React.cloneElement(child, { activePane, index, height, key: index, activateTab: () => activatePane(index) }))}
+    </div>
+  );
+};
+
+Accordion.Pane = ({ heading, index, activePane, height, activateTab, children }) => {
+  const isActive = activePane === index;
   const innerStyle = {
     height: `${isActive ? height : 0}px`,
   };
-
   return (
-    <div className="panel" role="tabpanel" aria-expanded={isActive}>
-      <button className="panel__label" role="tab" type="button" onClick={activateTab}>
-        {label}
-      </button>
-      <div className="panel__inner" style={innerStyle} aria-hidden={!isActive}>
-        <p className="panel__content">{content}</p>
+    <div className="accordion-item">
+      <h2 className="accordion-header" id="headingOne">
+        <button className={`accordion-button ${!isActive ? 'collapsed' : ''}`} type="button" aria-expanded={isActive} onClick={activateTab}>
+          {heading}
+        </button>
+      </h2>
+      <div className="accordion-collapse collapsing" style={innerStyle}>
+        <div className="accordion-body">{children}</div>
       </div>
     </div>
   );
-}
-
-function Accordion({ panels }) {
-  const [activeTab, setActiveTab] = useState(0);
-
-  const activateTab = index => {
-    setActiveTab(prev => (prev.activeTab === index ? -1 : index));
-  };
-  return (
-    <div className="accordion" role="tablist">
-      {panels.map((panel, index) => (
-        <Panel key={index} activeTab={activeTab} index={index} {...panel} activateTab={() => activateTab(index)} />
-      ))}
-    </div>
-  );
-}
+};
 
 export default Accordion;
