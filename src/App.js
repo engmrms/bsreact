@@ -1,7 +1,9 @@
 import './App.css';
 
 import Accordion from './Accordion';
+import icon from './Assets/images/bar.svg';
 import { BSdropdown, BSModal } from './bootstrap';
+import { Icon } from './icons';
 import RSelect from './Select/index';
 import { Pane, TabNav } from './TabNav';
 import Wizered from './Users/Wizered';
@@ -10,6 +12,9 @@ function App() {
   return (
     <div className="container">
       {/* <BSvmodal/> */}
+      <img src={icon} alt="" style={{ fill: 'green' }} />
+      <Icon name="bar" width={80} height={80} fill="#ccc" />
+
       <div className="row gy-3 h-100">
         <div>
           <BSModal />
