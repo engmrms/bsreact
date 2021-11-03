@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-expressions */
 import { Toast } from 'bootstrap';
 import React, { useEffect, useRef } from 'react';
+import { render } from 'react-dom';
 
 // export default function BSToast() {
 //   const [toast, setToast] = useState(false);
@@ -86,3 +87,34 @@ BSToast.Header = Header;
 
 const Body = ({ children, className, ...rest }) => <div className={`toast-body ${className}`}>{children}</div>;
 BSToast.Body = Body;
+
+export const alertToast = () => {
+  // const [showtoast, setShowtoast] = useState(false);
+  const options = { message: 'SEESE', toast: true };
+  let divTarget = document.getElementById('toastContainer');
+  if (divTarget) {
+    // Rerender - the mounted ReactConfirmAlert
+    render(
+      <BSToast {...options}>
+        <BSToast.Body>
+          tototototototo
+          {/* <button type="button" className="btn-close" onClick={() => setShowtoast(false)} aria-label="Close" /> */}
+        </BSToast.Body>
+      </BSToast>,
+      divTarget
+    );
+  } else {
+    divTarget = document.createElement('div');
+    divTarget.id = 'toastContainer';
+    document.body.appendChild(divTarget);
+    render(
+      <BSToast {...options}>
+        <BSToast.Body>
+          tototototototo
+          {/* <button type="button" className="btn-close" onClick={() => setShowtoast(false)} aria-label="Close" /> */}
+        </BSToast.Body>
+      </BSToast>,
+      divTarget
+    );
+  }
+};
