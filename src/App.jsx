@@ -1,8 +1,10 @@
 import './App.css';
+
+import { useState } from 'react';
+
+import BSCollapse from './bootstrap/Collapse';
 import BSdropdown from './bootstrap/dropdown';
 import BSToast from './bootstrap/Toast';
-import BSCollapse from './bootstrap/Collapse';
-import { useState } from 'react';
 
 function App() {
   const [showtoast, setShowtoast] = useState(false);
