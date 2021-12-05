@@ -1,0 +1,19 @@
+@import "../../../../Assets/config/mixins";
+$sizes: "xxl" 120 32, "xl" 80 32, "lr" 64 22, "md" 48 16, "sm" 40 12, "xs" 32 10,
+  "xxs" 24 10;
+$color: #fff;
+@each $name, $dimention, $fs in $sizes {
+  .avatar-#{$name} {
+    background-color: rgba($color, 20%);
+    color: $color;
+    border-radius: 100%;
+    width: #{$dimention}px;
+    height: #{$dimention}px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-weight: 600;
+    font-size: #{$fs/10}rem;
+    line-height: #{($fs * 1.5) / 10}rem;
+  }
+}

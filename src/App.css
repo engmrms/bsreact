@@ -39,3 +39,7 @@ body {
   background-color: #ccc;
   padding: 40px;
 }
+
+.av.avatar-md {
+  background-color: black;
+}
