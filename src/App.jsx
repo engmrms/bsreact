@@ -1,7 +1,9 @@
 import "./App.css";
 
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
+import { getAll } from "./APIs/Placeholder";
 import img from "./Assets/images/call.svg";
 // import Accordion from "./Accordion";
 import BSCollapse from "./bootstrap/Collapse";
@@ -14,11 +16,13 @@ import BSToast from "./package/bootstrap/Toast";
 function App() {
   const [showtoast, setShowtoast] = useState(false);
   const showToast = useToastContext();
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(getAll());
     // Alert?.close();
     // console.log(toast);
-    showToast({ type: "primary", message: "SDFsdf" });
+    showToast({ type: "danger", message: "SDFsdf" });
   }, []);
 
   return (
