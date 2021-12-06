@@ -37,6 +37,10 @@ export const StatusCodes = {
    */
   OK: 200,
   /**
+   * @return {string} Return 200.
+   */
+  Created: 201,
+  /**
    * @return {string} Return 401.
    */
   Unauthorized: 401,

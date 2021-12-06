@@ -1,11 +1,16 @@
-import { ActionMethod } from "../utils/Enums";
-import axio from "./config";
+import { ActionMethod } from '../utils/Enums';
+import http from './config/http';
 
-export const getAll = () => ({
-  type: "",
-  payload: {
-    api: () => axio.get("https://jsonplaceholder.typicode.com/posts"),
-    table: "post",
-    AlwaysUpdated: ActionMethod.FromStore,
-  },
-});
+export const getAll = () => http.get('https://jsonplaceholder.typicode.com/posts', { table: 'posts', AlwaysUpdated: ActionMethod.FromStore });
+export const getComments = () =>
+  http.get('https://jsonplaceholder.typicode.com/posts/1/comments', { table: 'comments', AlwaysUpdated: ActionMethod.FromStore });
+export const newPost = () =>
+  http.post(
+    'https://jsonplaceholder.typicode.com/posts',
+    {
+      title: 'foo',
+      body: 'bar',
+      userId: 1,
+    },
+    { table: 'post', AlwaysUpdated: ActionMethod.AlwaysUpdated }
+  );

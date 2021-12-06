@@ -1,8 +1,8 @@
-import axios from "../../APIs/config";
-import { StatusCodes } from "../../utils/Enums";
+import axios from '../../APIs/config';
+import { StatusCodes } from '../../utils/Enums';
 // import { API } from "../actions/types";
 // import { accessDenied, apiEnd, apiError, apiStart } from "../actions/api";
-import { actions } from "../standard";
+import { actions } from '../standard';
 
 export const isEmpty = obj => {
   for (const _i in obj) return false;
@@ -16,26 +16,21 @@ const apiMiddleware =
     // console.log(getState(), action);
 
     next(action);
-    const store = getState();
-    const { api, table, AlwaysUpdated } = action.payload;
-    console.log("action", action.payload);
+    const { ams } = getState();
+    const { api, table, AlwaysUpdated } = action.payload || {};
     if (!api) return;
-    // console.log(api, table, AlwaysUpdated, actions.loading().type);
     // // check is there data in store[table]
-    if (!AlwaysUpdated && !isEmpty(store?.[table]) && !store?.[table].error) {
+    if (!AlwaysUpdated && !isEmpty(ams?.[table]) && !ams?.[table].error) {
       dispatch({ type: actions.dataExist().type });
     }
     // check to prevent request dublicates
-    if (!store?.ams?.[table]?.loading) {
+    if (!ams?.[table]?.loading) {
       // show loading
-
-      console.log(table);
       dispatch({
         type: actions.loading().type,
-        payload: { ...action.payload, ...{ [table]: { loading: true, error: false } } },
+        payload: { [table]: { loading: true, error: false } },
       });
     }
-    console.log(store);
     (async () => {
       /* wait for http */
       const response = await api()
@@ -47,7 +42,7 @@ const apiMiddleware =
           });
         });
       /* handle Success */
-      if (response?.status === StatusCodes.OK) {
+      if (response?.status === StatusCodes.OK || response?.status === StatusCodes.Created) {
         dispatch({
           type: actions.fetchSuccess().type,
           payload: { [table]: { ...response.data, loading: false } },
