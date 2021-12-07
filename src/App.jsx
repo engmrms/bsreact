@@ -1,17 +1,22 @@
-import "./App.css";
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-empty */
+/* eslint-disable prettier/prettier */
+/* eslint-disable quotes */
+import './App.css';
 
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { getAll, getAxiosAll, getComments, newPost } from "./APIs/Placeholder";
-import img from "./Assets/images/call.svg";
+import { getAll, getAxiosAll, getComments, newPost } from './APIs/Placeholder';
+import img from './Assets/images/call.svg';
 // import Accordion from "./Accordion";
-import BSCollapse from "./bootstrap/Collapse";
-import BSdropdown from "./bootstrap/dropdown";
-import useToastContext from "./context";
-import Avatar from "./package/avatar";
-import Alert from "./package/bootstrap/Alert";
-import BSToast from "./package/bootstrap/Toast";
+import BSCollapse from './bootstrap/Collapse';
+import BSdropdown from './bootstrap/dropdown';
+import useToastContext from './context';
+import Avatar from './package/avatar';
+import Alert from './package/bootstrap/Alert';
+import BSToast from './package/bootstrap/Toast';
+import { actions } from './store/Counter/reducer';
 
 function App() {
   const [showtoast, setShowtoast] = useState(false);
@@ -19,16 +24,25 @@ function App() {
   const dispatch = useDispatch();
   const { post } = useSelector(state => state?.ams) || {};
 
-  useEffect(() => {
+  useEffect(async () => {
     dispatch(getAxiosAll());
+
+    try {
+      await getAxiosAll().then(resp => console.log('resp:', resp?.data));
+    } catch (error) {}
+
+    dispatch(actions.increment());
+    dispatch(actions.increment());
+    dispatch(actions.decrement());
+    dispatch(actions.increment());
     // dispatch(getComments());
     // dispatch(newPost());
     // Alert?.close();
     // console.log(toast);
-    showToast({ type: "danger", message: "SDFsdf" });
+    showToast({ type: 'danger', message: 'SDFsdf' });
   }, []);
   useEffect(() => {
-    console.log("state", post);
+    console.log('state', post);
   }, [post]);
 
   return (

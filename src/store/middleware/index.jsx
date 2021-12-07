@@ -1,27 +1,31 @@
-import { isPlainObject } from "@reduxjs/toolkit";
+/* eslint-disable arrow-body-style */
+/* eslint-disable prettier/prettier */
+/* eslint-disable quotes */
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
+import { isPlainObject } from '@reduxjs/toolkit';
 
-import axios from "../../APIs/config";
-import { StatusCodes } from "../../utils/Enums";
-// import { API } from "../actions/types";
-// import { accessDenied, apiEnd, apiError, apiStart } from "../actions/api";
-import { actions } from "../standard";
+import { StatusCodes } from '../../utils/Enums';
+import { actions } from '../standard';
 
 export const isEmpty = obj => {
   for (const _i in obj) return false;
   return true;
 };
 
+const isPromise = promise => {
+  return !!promise && typeof promise.then === 'function';
+};
 const apiMiddleware =
   ({ getState, dispatch }) =>
   next =>
   action => {
-    console.log(getState(), action);
-    if (!isPlainObject(action) && action !== undefined) {
+    if (!isPlainObject(action) && isPromise(action)) {
       dispatch({
-        type: "",
+        type: '',
         payload: {
           api: () => action,
-          table: "post",
+          table: 'post',
           AlwaysUpdated: true,
         },
       });
