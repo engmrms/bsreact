@@ -1,8 +1,10 @@
-import axios from '../../APIs/config';
-import { StatusCodes } from '../../utils/Enums';
+import { isPlainObject } from "@reduxjs/toolkit";
+
+import axios from "../../APIs/config";
+import { StatusCodes } from "../../utils/Enums";
 // import { API } from "../actions/types";
 // import { accessDenied, apiEnd, apiError, apiStart } from "../actions/api";
-import { actions } from '../standard';
+import { actions } from "../standard";
 
 export const isEmpty = obj => {
   for (const _i in obj) return false;
@@ -13,9 +15,20 @@ const apiMiddleware =
   ({ getState, dispatch }) =>
   next =>
   action => {
-    // console.log(getState(), action);
+    console.log(getState(), action);
+    if (!isPlainObject(action) && action !== undefined) {
+      dispatch({
+        type: "",
+        payload: {
+          api: () => action,
+          table: "post",
+          AlwaysUpdated: true,
+        },
+      });
+    } else {
+      next(action);
+    }
 
-    next(action);
     const { ams } = getState();
     const { api, table, AlwaysUpdated } = action.payload || {};
     if (!api) return;
